@@ -1,0 +1,152 @@
+{% extends 'users/base.html' %}
+
+{% load static %}
+
+{% load humanize %}
+
+{% block title %}EmmaSkill Institute | Dashboard{% endblock title %}
+
+{% block content %}
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="container mt-4 mx-auto" data-aos="fade-right">
+            <!-- Small boxes (Stat box) -->
+            <div class="row justify-content-around">
+              <div class="col-lg-4 col-6">
+                <!-- small box -->
+                <div class="small-box bg-info">
+                  <div class="inner">
+                    <h3>150</h3>
+      
+                    <p>Your Orders</p>
+                  </div>
+                  <div class="icon">
+                    <i class="ion ion-bag"></i>
+                  </div>
+                  <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+              </div>
+              <!-- ./col -->
+              <div class="col-lg-4 col-6">
+                <!-- small box -->
+                <div class="small-box bg-warning">
+                  <div class="inner">
+                    <h3>{{book.count}}</h3>
+      
+                    <p>Appointments Booked</p>
+                  </div>
+                  <div class="icon">
+                    <i class="ion ion-person-add"></i>
+                  </div>
+                  <a href="{% url 'bookings' %}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+              </div>
+            </div>
+            <!-- /.row -->
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+      
+    <!-- ======= Market Section ======= -->
+    <section id="contact" class="contact" style="background-color: rgb(37, 36, 36);">
+      <div class="container">
+
+        <div class="section-title" data-aos="zoom-out">
+          <h2 class="text-white">Trending Market</h2>
+          <p class="text-white">Order your refurbished phones</p>
+        </div>
+
+        {% if mart %}
+        <div class="row justify-content-around mt-3 stock" data-aos="fade-left">
+          {% for i in mart %}
+          {% if i.trending and forloop.counter <= 8 %}
+          <div class="col-lg-4 col-md-6 col-sm-12 mt-2">
+            <div class="card rounded-3 shadow text-white">
+              <div class="card-img-top" style="background: url({{i.image.url}}); height: 250px; background-size: cover; background-position: center; background-repeat: no-repeat;">
+              </div>
+              <div class="card-img-top p-4 bg-dark shadow rounded-0" style="height: 170px;">
+                <a href="{% url 'market' i.slug %}" class="card-title text-capitalize mb-3">{{i.name}}</a>
+                {% if i.original_price and i.selling_price %}
+                <h6 class="card-text mb-3">
+                  <small><strike>NGN {{i.original_price | floatformat:0 | intcomma}}</strike></small>
+                {% endif %}
+                {% if i.selling_price %}
+                <span class="ml-2">NGN {{i.selling_price | floatformat:0 | intcomma}}</span>
+                </h6>
+                {% endif %}
+                {% if i.tag %}
+                <div class="ribbon-wrapper ribbon-lg">
+                  {% if i.tag == "sale" %}
+                  <div class="ribbon bg-danger text-lg">
+                    {{i.tag}}
+                  </div>
+                  {% else %}
+                  <div class="ribbon bg-success text-lg">
+                    {{i.tag}}
+                  </div>
+                  {% endif %}
+                </div>
+                {% endif %}
+                <div class="row">
+                  {% if i.quantity > 0 %}
+                  <div class="button">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{i.id}}" class="prod_id">
+                    <button class="btn text-white w-100 addToCart" style="background-color: #ef6603; color: white;">Add to Cart <i class="fa fa-cart-arrow-down" aria-hidden="true" type="button"></i></button>
+                  </div>
+                  {% else %}
+                    <label class="btn btn-danger">Out of Stock</label>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+        {% else %}
+        <div class="mt-4 p-5 text-white rounded" style="background-color: #ef6603; color: white;">
+          <h1><i class="fa fa-cart-arrow-down" aria-hidden="true" style="font-size: 50px;"></i> No Market</h1>
+        </div>
+        {% endif %}
+    </section><!-- End Contact Section -->
+
+    <!-- ======= Review Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container">
+
+        <div class="section-title" data-aos="zoom-out">
+          <h2>Review</h2>
+          <p>Help Us Better Serve You</p>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-lg-6 p-5 mx-auto bg-light neumorphic-card card shadow mt-lg-0" data-aos="fade-left">
+            <form method="post" role="form" class="php-email-form bg-light">
+              {% csrf_token %}
+              <div class="col-12 form-group mt-3">
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+              </div>
+              <div class="form-group mt-3">
+                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+              </div>
+              <div class="text-center"><button type="submit">Send Message</button></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+
+  <script src="{% static 'assets/js/custom.js' %}"></script>
+
+  {% endblock content %}
