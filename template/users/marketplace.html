@@ -1,0 +1,141 @@
+{% extends 'users/base.html' %}
+
+{% load static %}
+
+{% load humanize %}
+
+{% block title %}EmmaSkill Institute | Marketplace{% endblock title %}
+
+{% block content %}
+
+<main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section class="breadcrumbs">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2></h2>
+                <ol>
+                    <!-- <li><a href="/users/dashboard">Home</a></li> -->
+                    {% comment %} <li>Inner Page</li> {% endcomment %}
+                </ol>
+            </div>
+        </div>
+    </section><!-- End Breadcrumbs -->
+
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+        <div class="container">
+  
+          <div class="section-title" data-aos="zoom-out">
+            <h2>Marketplace</h2>
+            <p>Shop the Best Deals</p>
+          </div>
+
+            <div class="container mt-2" data-aos="zoom-in">
+                <div class="p-5">
+                    <div class="row justify-content-around">
+                        <!-- Product Cards (3 per page) -->
+                        {% if products %}
+                        {% for i in products %}
+                        <div class="col-md-6 col-lg-4 col-sm-12 mb-4">
+                            <div class="card neumorphic-card">
+                                <div class="card-img-top rounded rounded-5" style="background: url({{i.image.url}}); height: 250px; background-size: cover; background-position: center; background-repeat: no-repeat;">
+                                </div>
+                                <div class="card-body px-4">
+                                    <a href="{% url 'market' i.slug %}" class="card-title text-capitalize mb-3">{{i.name}}</a>
+                                    {% if i.original_price and i.selling_price %}
+                                    <h6 class="card-text mb-3">
+                                    <small><strike>NGN {{i.original_price | floatformat:0 | intcomma }}</strike></small>
+                                    {% endif %}
+                                    {% if i.selling_price %}
+                                    <span class="ml-2">NGN {{i.selling_price | floatformat:0 | intcomma }}</span>
+                                    </h6>
+                                    {% endif %}
+                                    {% if i.tag %}
+                                    <div class="ribbon-wrapper ribbon-lg">
+                                        {% if i.tag == "sale" %}
+                                        <div class="ribbon bg-danger text-lg">
+                                            {{i.tag}}
+                                        </div>
+                                        {% else %}
+                                        <div class="ribbon bg-success text-lg">
+                                            {{i.tag}}
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    {% endif %}
+                                    <div class="row">
+                                        {% if i.quantity > 0 %}
+                                        <div class="button">
+                                            {% csrf_token %}
+                                            <input type="hidden" value="{{i.id}}" class="prod_id">
+                                            <button class="btn text-white w-100 addToCart" style="background-color: #ef6603; color: white;">Add to Cart <i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
+                                        </div>
+                                        {% else %}
+                                        <label class="btn btn-danger">Out of Stock</label>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <div class="my-4 p-5 text-white rounded" style="background-color: #ef6603; color: white;">
+                        <h1><i class="fa fa-cart-arrow-down" aria-hidden="true" style="font-size: 50px;"></i> No Market</h1>
+                        <!-- <p>Lorem ipsum...</p> -->
+                        </div>
+                        {% endif %}
+                
+                        <!-- Repeat this card structure for 12 different products -->
+                
+                    </div>
+                
+                    {% if products %}
+                    <!-- Pagination -->
+                    <nav aria-label="Page navigation container">
+                        <ul class="pagination justify-content-center">
+                            {% if products.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page=1">&laquo; First</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{products.previous_page_number}}" tabindex="-1">Previous</a>
+                            </li>
+                            {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1">Previous</a>
+                            </li>
+                            {% endif %}
+                            {% if products.paginator.num_pages %}
+                                {% for i in products.paginator.page_range %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{i}}">{{i}}</a>
+                                    </li>
+                                {% endfor %}
+                            {% endif %}
+                            {% if products.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{products.next_page_number}}">Next</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{products.paginator.num_pages}}">&raquo; Last</a>
+                            </li>
+                            {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#">Next</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<script src="{% static 'assets/js/custom.js' %}"></script>
+
+{% endblock %}

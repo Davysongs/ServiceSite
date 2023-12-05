@@ -1,0 +1,113 @@
+{% extends 'users/base.html' %}
+
+{% load static %}
+
+{% block title %}EmmaSkill Institute | Profile{% endblock title %}
+
+{% block content %}
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2></h2>
+          <ol>
+            <!-- <li><a href="/users/dashboard">Home</a></li> -->
+            {% comment %} <li>Inner Page</li> {% endcomment %}
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+      
+    <!-- <section class="inner-page"  >
+      <div class="container">
+        <p>
+          Example inner page template
+        </p>
+      </div>
+    </section> -->
+
+    <!-- ======= Profile Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container px-4">
+
+        <div class="section-title" data-aos="zoom-out">
+          <h2>Profile</h2>
+          <p>Your Personal Details</p>
+        </div>
+
+        <div class="row mt-2 justify-content-between" data-aos="zoom-out">
+          <div class="col-lg-7 card p-5 bg-light shadow mt-lg-0" data-aos="fade-left">
+            <form method="post" role="form" class="php-email-form bg-light" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-md-4 col-sm-12 col-lg-6 form-group mt-3 mt-md-0">
+                  <input type="text" class="form-control" name="lname" id="lname" placeholder="Last Name" required value="{{show.last_name}}">
+                </div>
+                <div class="col-md-4 col-sm-12 col-lg-6 form-group">
+                  <input type="text" name="fname" class="form-control" id="fname" placeholder="First Name" required value="{{show.first_name}}">
+                </div>
+                <!-- <div class="col-md-4 col-sm-12 col-lg-4 form-group mt-3 mt-md-0">
+                  <input type="text" class="form-control" name="mname" id="mname" placeholder="Middle Name" required>
+                </div> -->
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-sm-12 form-group mt-2">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Email Address" required value="{{request.user.email}}" readonly>
+                </div>
+                <div class="col-md-6 col-sm-12 form-group mt-2">
+                  <input type="tel" class="form-control" name="phone" id="phone" placeholder="Phone Number" required value="{{show.phone}}">
+                </div>
+                <div class="col-md-6 col-lg-12 col-sm-12 form-group mt-2">
+                    <input type="text" class="form-control" name="address" id="address" placeholder="Address" required value="{{show.address}}">
+                </div>
+                <div class="col-md-6 col-lg-6 col-sm-12 form-group mt-2">
+                  <input type="text" class="form-control" name="city" id="city" placeholder="City" required value="{{show.city}}">
+                </div>
+                <div class="col-md-6 col-lg-6 col-sm-12 form-group mt-2">
+                  <input type="text" class="form-control" name="postcode" id="postcode" placeholder="Postcode" required value="{{show.postcode}}">
+                </div>
+                <div class="col-md-6 col-lg-6 col-sm-12 form-group mt-2">
+                  <input type="text" class="form-control" name="state" id="state" placeholder="State" required value="{{show.state}}">
+                </div>
+                <div class="col-md-6 col-lg-6 col-sm-12 form-group mt-2">
+                  <input type="text" class="form-control" name="country" id="country" placeholder="Country" required value="{{show.country}}">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-12 mt-3">
+              <!-- Profile Image -->
+              <div class="card shadow" style="border-color: #ef6603;">
+                  <div class="card-header" style="background-color: #ef6603;">
+                      <h3 style="color: white;">Profile Picture</h3>
+                  </div>
+                  <div class="card-body box-profile">
+                      <div class="text-center">
+                        {% if show.image %}
+                        <img src="{{show.image.url}}" class="profile-user-img img-fluid img-circle" alt="{{request.user}}">
+                        {% else %}
+                        <img src="{% static 'assets/img/default.jpg' %}" class="profile-user-img img-fluid img-circle" alt="{{request.user}}">
+                        {% endif %}
+                      </div>
+                      <form>
+                          <input type="file" name="image" id="image" class="form-control mt-3">
+                          <button type="submit" class="btn btn-warning mt-3 w-100" style="background-color: #ef6603; color: white; border-color: #ef6603;">Save</button>
+                      </form>
+                  </div>
+                  <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+          </div>
+          
+        </div>
+      </div>
+    </section><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+
+  {% endblock content %}

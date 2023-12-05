@@ -1,0 +1,97 @@
+{% extends 'adm/base.html' %}
+
+{% load static %}
+
+{% block title %}EmmaSkill Institute - Users{% endblock title %}
+
+{% block content %}
+
+<!-- Navbar -->
+<nav class="main-header navbar navbar-expand navbar-white navbar-light p-0">
+
+    <div class="py-2 px-3 w-100 bg-primary text-white" style="background: rgb(2,0,36);
+    background-image: linear-gradient(90deg, #020024 0%, #090979 35%, #00d4ff 100%);
+    ">
+    <ul class="navbar-nav mb-2">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa fa-bars text-white"></i></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="/" class="nav-link text-white">Home</a>
+      </li>
+      
+    </ul>
+    <div class="px-3 mb-3">
+        <h1 class="h1">User Data</h1>
+        <p>Registered Users <span class="badge bg-success ml-1">{{user.count}}</span></p>
+    </div>
+    </div>
+    <!-- Left navbar links -->
+    
+  </nav>
+  <!-- /.navbar -->
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+
+  <section class="content mt-3">
+    <div class="card card-solid shadow">
+      <div class="card-body pb-0">
+        <div class="row d-flex align-items-stretch">
+          {% for i in user %}
+          <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
+            <div class="card bg-light shadow-md">
+              <!-- <div class="card-header text-muted border-bottom-0">
+                Digital Strategist
+              </div> -->
+              <div class="card-body py-4">
+                <div class="row">
+                  <div class="col-7">
+                    <h2 class="lead"><b>{{i.email}}</b></h2>
+                    <!-- <p class="text-muted text-sm"><b>About: </b> Web Designer / UX / Graphic Artist / Coffee Lover </p> -->
+                    <ul class="ml-4 mb-0 fa-ul text-muted">
+                      <li class="small"><span class="fa-li"><i class="fa fa-lg fa-building"></i></span> {{i.address}}</li>
+                      <li class="small"><span class="fa-li"><i class="fa fa-lg fa-phone"></i></span> {{i.phone}}</li>
+                    </ul>
+                  </div>
+                  <div class="col-5 text-center">
+                    <img src="{% static 'assets/img/team.jpg' %}" alt="" class="img-circle img-fluid">
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <div class="text-right">
+                  <a href="#" class="btn btn-sm bg-teal">
+                    <i class="fa fa-comments"></i>
+                  </a>
+                  <a href="#" class="btn btn-sm btn-primary">
+                    <i class="fa fa-user"></i> View Profile
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="row">
+            {% for p in profile %}
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card mb-4 py-3 border border-danger shadow">
+                    <div class="card-body">
+                        <span class="float-left text-capitalize">{{p.user}}</span>
+                        <a href="/adm/user/{{p.user_id}}" class="text-white"><span class="btn btn-success float-right">View</span></a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+</section>
+</div>
+<!-- /.content-wrapper -->
+
+{% endblock %}

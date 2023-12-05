@@ -1,0 +1,70 @@
+{% extends 'users/base.html' %}
+
+{% load static %}
+
+{% block title %}EmmaSkill Institute | Order{% endblock title %}
+
+{% block content %}
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2></h2>
+          <ol>
+            <!-- <li><a href="/users/dashboard">Home</a></li> -->
+            {% comment %} <li>Inner Page</li> {% endcomment %}
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <!-- ======= Order Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container px-4">
+
+        <div class="section-title" data-aos="zoom-out">
+          <h2>Order</h2>
+          <p>Your Order History</p>
+        </div>
+        
+        <div class="container mt-4" data-aos="fade-right">
+          <div class="table-responsive">
+              <table class="table table-bordered">
+                  <thead class="table-dark">
+                      <tr>
+                          <th scope="col">Order Number</th>
+                          <th scope="col">Date</th>
+                          <th scope="col">Items</th>
+                          <th scope="col">Total Amount</th>
+                          <th scope="col">Status</th>
+                          <th scope="col">Actions</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                          <td>#12345</td>
+                          <td>2023-09-15</td>
+                          <td>Product A, Product B</td>
+                          <td>$150.00</td>
+                          <td>Delivered</td>
+                          <td>
+                              <a href="#" class="btn btn-primary btn-sm mb-sm-2 mb-lg-0">Details</a>
+                              <a href="#" class="btn btn-secondary btn-sm">Track</a>
+                          </td>
+                      </tr>
+                      <!-- Add more rows for additional orders -->
+                  </tbody>
+              </table>
+          </div>
+      </div>      
+    </div>
+  </section>
+
+  </main><!-- End #main -->
+
+  {% endblock content %}

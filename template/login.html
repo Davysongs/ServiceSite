@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}EmmaSkill Institute | Login{% endblock title %}
+
+{% block content %}
+    <div class="login-box">
+        <div class="register-logo">
+          <a href="/"><b>Emma</b>Skills</a>
+          </div>
+        <!-- /.login-logo -->
+        <div class="card">
+          <div class="card-body login-card-body">
+            <p class="login-box-msg mb-3"><span class="float-left">Sign in to start your session</span><span class="float-right text-dark"><a href="/"><i class="fa fa-home" title="Homepage"></i></a></span></p>
+
+            <div>
+                {% for message in messages %}
+                <h5 class="text-danger h6 mb-4">{{message}}</h5>
+                {% endfor %}
+              </div>
+      
+            <form method="post">
+                {% csrf_token %}
+              <div class="input-group mb-3">
+                <input type="text" class="form-control text-capitalize" placeholder="Username" name="username">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <span class="fa fa-user"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="input-group mb-3">
+                <input type="password" class="form-control" placeholder="Password" name="password">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <span class="fa fa-lock"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                </div>
+                <!-- /.col -->
+              </div>
+            </form>
+
+            <p class="my-2">
+              <a href="{% url 'password_reset' %}">I forgot my password</a>
+            </p>
+            <p class="mb-0">
+              <a href="{% url 'register' %}" class="text-center">Register a new membership</a>
+            </p>
+
+          </div>
+          <!-- /.login-card-body -->
+        </div>
+      </div>
+      <!-- /.login-box -->      
+
+{% endblock content %}
